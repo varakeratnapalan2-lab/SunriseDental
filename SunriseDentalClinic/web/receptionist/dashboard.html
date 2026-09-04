@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receptionist Dashboard — SunriseDental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Reception Desk</p>
+        <h1>Reception Overview 👋</h1>
+        <p>Manage patient queue, appointments registration, and billing calculations</p>
+      </div>
+
+      <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-value" id="statToday">—</div>
+          <div class="stat-label">Today's Appointments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏰</div>
+          <div class="stat-value" style="color: #60a5fa;">Live</div>
+          <div class="stat-label">Queue Monitor</div>
+        </div>
+      </div>
+
+      <!-- Monthly Appointments Overview Graph -->
+      <div class="card" style="margin-bottom: 24px;">
+        <h2 class="card-title" style="display:flex; justify-content:space-between;">
+          <span>📈 Monthly Appointments Overview (2026)</span>
+        </h2>
+        <div style="position: relative; height: 280px; width: 100%;">
+          <canvas id="receptionActivityChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Filter Section (Matches Admin Dashboard) -->
+      <div class="filter-section" style="margin-bottom: 24px; padding: 20px; background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3 style="margin: 0; color: #f8fafc; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.3rem;">📅</span> Patient Queue Filter
+        </h3>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <input type="date" id="queueDateFilter" class="form-input" style="padding: 8px 16px; width: 200px; border: 1px solid rgba(99, 102, 241, 0.3); background: rgba(15, 23, 42, 0.6); color: #f1f5f9; border-radius: 8px; cursor: pointer;" onclick="this.showPicker()" />
+          <button id="btnFilterQueue" class="btn btn-primary" style="padding: 8px 20px; border-radius: 8px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; cursor: pointer; color: white; transition: all 0.3s ease;">Filter Data</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">📅 Patient Queue Overview</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Appt No</th>
+                <th>Patient Name</th>
+                <th>Dentist</th>
+                <th>Treatment</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="todayAppointmentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js?v=7"></script>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script>
+    requireAuth(['RECEPTIONIST', 'ADMIN']);
+    initAppShell('RECEPTIONIST', 'dashboard');
+    if (typeof initReceptionistDashboard === 'function') {
+      initReceptionistDashboard();
+    }
+  </script>
+</body>
+</html>

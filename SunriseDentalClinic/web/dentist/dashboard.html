@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dentist Dashboard — SunriseDental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Doctor Portal</p>
+        <h1>Good day, Doctor 🦷</h1>
+        <p>Review your assigned patient consultations, appointment timings, and treatment statuses</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-value" id="statMyToday">—</div>
+          <div class="stat-label">My Appointments Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🦷</div>
+          <div class="stat-value" style="color: #2dd4bf;">Active</div>
+          <div class="stat-label">Clinical Practice</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-value" style="color: #f59e0b;">Ready</div>
+          <div class="stat-label">Consultation Room</div>
+        </div>
+      </div>
+
+      <!-- Monthly Appointments Overview Graph -->
+      <div class="card" style="margin-bottom: 24px;">
+        <h2 class="card-title" style="display:flex; justify-content:space-between;">
+          <span>📈 Monthly Appointments Overview (2026)</span>
+        </h2>
+        <div style="position: relative; height: 280px; width: 100%;">
+          <canvas id="dentistActivityChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">🩺 Today's Patient Schedule</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Appt No</th>
+                <th>Patient Name</th>
+                <th>Treatment</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="todayAppointmentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js?v=7"></script>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script src="../js/dentist.js?v=7"></script>
+  <script>
+    requireAuth(['DENTIST']);
+    initAppShell('DENTIST', 'dashboard');
+    initDentistDashboard();
+  </script>
+</body>
+</html>

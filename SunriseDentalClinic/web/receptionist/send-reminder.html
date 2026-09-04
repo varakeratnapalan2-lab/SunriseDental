@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Reminder — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Receptionist</p>
+        <h1>Send Appointment Reminder</h1>
+        <p>Email or SMS notification to patient contact</p>
+      </div>
+      <div class="card">
+        <form id="reminderForm">
+          <div class="form-group">
+            <label for="appointmentNumber">Appointment Number</label>
+            <input type="text" id="appointmentNumber" name="appointmentNumber" placeholder="APT0001">
+          </div>
+          <div class="form-group">
+            <label for="notifyType">Notification Type</label>
+            <select id="notifyType" name="notifyType">
+              <option value="sms">SMS</option>
+              <option value="email">Email</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="max-width:240px;">Send Reminder</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script>
+    requireAuth(['RECEPTIONIST']);
+    initAppShell('RECEPTIONIST', 'reminder');
+    initSendReminder();
+  </script>
+</body>
+</html>

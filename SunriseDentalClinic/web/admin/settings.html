@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Administrator</p>
+        <h1>Clinic Settings</h1>
+        <p>Treatment prices, consultation fee, and dentists</p>
+      </div>
+      <div class="card">
+        <h2 class="card-title">💰 Consultation Fee</h2>
+        <div class="search-inline">
+          <input type="number" id="consultationFee" min="0" step="100" placeholder="Fee in LKR">
+          <button type="button" id="saveFeeBtn" class="btn btn-primary btn-sm">Save Fee</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">🦷 Treatment Types & Prices</h2>
+        <form id="treatmentForm" class="search-inline">
+          <input type="text" name="name" placeholder="Treatment name" required>
+          <input type="number" name="price" placeholder="Price LKR" required min="0">
+          <button type="submit" class="btn btn-secondary btn-sm">Add Treatment</button>
+        </form>
+        <div class="table-wrap" style="margin-top:16px">
+          <table class="data-table">
+            <thead><tr><th>Treatment</th><th>Price</th></tr></thead>
+            <tbody id="treatmentBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-title">👨‍⚕️ Dentists</h2>
+        <form id="dentistForm" class="search-inline">
+          <input type="text" name="name" placeholder="Dentist name" required>
+          <input type="text" name="specialization" placeholder="Specialization">
+          <button type="submit" class="btn btn-secondary btn-sm">Add Dentist</button>
+        </form>
+        <div class="table-wrap" style="margin-top:16px">
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Specialization</th></tr></thead>
+            <tbody id="dentistBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/admin.js?v=7"></script>
+  <script>
+    requireAuth(['ADMIN']);
+    initAppShell('ADMIN', 'settings');
+    initSettingsPage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Status — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Dentist</p>
+        <h1>Update Appointment Status</h1>
+        <p>Scheduled → In Progress → Completed</p>
+      </div>
+      <div class="card">
+        <form id="updateStatusForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Appointment Number</label>
+              <input type="text" name="appointmentNumber" required placeholder="APT0001">
+            </div>
+            <div class="form-group">
+              <label>New Status</label>
+              <select name="status" required>
+                <option value="Scheduled">Scheduled</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Update Status</button>
+        </form>
+        <div id="statusApptDetails" class="hidden" style="margin-top:24px"></div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script>
+    requireAuth(['DENTIST']);
+    initAppShell('DENTIST', 'status');
+    initUpdateStatusPage();
+  </script>
+</body>
+</html>

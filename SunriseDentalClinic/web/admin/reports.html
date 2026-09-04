@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Administrator</p>
+        <h1>Management Reports</h1>
+        <p>Daily appointments and revenue for decision-making</p>
+      </div>
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-tab="daily">Daily Appointments</button>
+        <button type="button" class="tab-btn" data-tab="revenue">Revenue Report</button>
+      </div>
+      <div class="card tab-panel active" id="tab-daily">
+        <form id="dailyReportForm" class="search-inline">
+          <input type="date" name="date" required>
+          <button type="submit" class="btn btn-primary btn-sm">Generate Report</button>
+        </form>
+        <div id="dailyReportOut" class="hidden"></div>
+      </div>
+      <div class="card tab-panel" id="tab-revenue">
+        <form id="revenueReportForm" class="search-inline">
+          <input type="date" name="from" required aria-label="From date">
+          <input type="date" name="to" required aria-label="To date">
+          <button type="submit" class="btn btn-primary btn-sm">Generate Report</button>
+        </form>
+        <div id="revenueReportOut" class="hidden"></div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script src="../js/admin.js?v=7"></script>
+  <script>
+    requireAuth(['ADMIN']);
+    initAppShell('ADMIN', 'reports');
+    initReportsPage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Appointment — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Dentist</p>
+        <h1>Search Appointment</h1>
+        <p>View appointment details by appointment number</p>
+      </div>
+      <div class="card">
+        <form id="searchAppointmentForm" class="search-inline">
+          <input type="text" name="appointmentNumber" placeholder="Appointment number">
+          <button type="submit" class="btn btn-primary btn-sm">Search</button>
+        </form>
+        <div id="appointmentDetails" class="hidden"></div>
+      </div>
+    </main>
+  </div>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script src="../js/dentist.js?v=7"></script>
+  <script>
+    requireAuth(['DENTIST']);
+    initAppShell('DENTIST', 'search');
+    initDentistSearch();
+  </script>
+</body>
+</html>

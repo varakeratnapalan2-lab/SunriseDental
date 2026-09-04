@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Executive Dashboard — SunriseDental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Administrator Portal</p>
+        <h1 id="greetingName">Welcome, Admin ⚙️</h1>
+        <p>System configuration, personnel management, and clinic analytics</p>
+      </div>
+
+      <!-- Graph Section -->
+      <div class="card" style="margin-bottom: 24px;">
+        <h2 class="card-title">📊 Monthly Appointments Overview (2026)</h2>
+        <div style="position: relative; height: 320px; width: 100%;">
+          <canvas id="appointmentsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Filter Section -->
+      <div class="filter-section"
+        style="margin-bottom: 24px; padding: 20px; background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h3 style="margin: 0; color: #f8fafc; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.3rem;">📅</span> Daily Performance Filter
+        </h3>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <input type="date" id="statsDateFilter" class="form-input"
+            style="padding: 8px 16px; width: 200px; border: 1px solid rgba(99, 102, 241, 0.3); background: rgba(15, 23, 42, 0.6); color: #f1f5f9; border-radius: 8px;"
+            onclick="this.showPicker()" />
+          <button id="btnFilterStats" class="btn btn-primary"
+            style="padding: 8px 20px; border-radius: 8px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; cursor: pointer; color: white; transition: all 0.3s ease;">Filter
+            Data</button>
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+      <style>
+        .stats-grid {
+          transition: all 0.5s ease-in-out;
+        }
+
+        .stats-animating {
+          opacity: 0;
+          transform: translateY(10px) scale(0.98);
+        }
+
+        .stat-value {
+          transition: color 0.3s;
+        }
+      </style>
+      <div class="stats-grid" id="statsGridContainer">
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-value" id="statAllAppts">—</div>
+          <div class="stat-label">Total Appointments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="statStaff">—</div>
+          <div class="stat-label">Registered Staff</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🩺</div>
+          <div class="stat-value" id="statDentists">3</div>
+          <div class="stat-label">Active Dentists</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🛡️</div>
+          <div class="stat-value"
+            style="color: #34d399; background: linear-gradient(135deg, #34d399, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Active</div>
+          <div class="stat-label">Portal Security</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js?v=7"></script>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script src="../js/admin.js?v=7"></script>
+  <script>
+    requireAuth(['ADMIN']);
+    initAppShell('ADMIN', 'dashboard');
+    initAdminDashboard();
+  </script>
+</body>
+
+</html>

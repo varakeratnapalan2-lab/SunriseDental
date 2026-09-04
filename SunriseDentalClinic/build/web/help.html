@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help & User Guide — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .help-hero {
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(16,185,129,0.1));
+      border-radius: 16px; padding: 32px; margin-bottom: 24px;
+      border: 1px solid rgba(99,102,241,0.15);
+      text-align: center;
+    }
+    .help-hero h1 { font-size: 2rem; margin: 0 0 8px; }
+    .help-hero h1 span { background: linear-gradient(135deg, #6366f1, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .help-hero p { color: #94a3b8; margin: 0; font-size: 1rem; }
+
+    .help-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .help-tab {
+      padding: 12px 24px; border-radius: 12px; cursor: pointer;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      color: #94a3b8; font-weight: 600; font-size: 0.9rem;
+      transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;
+    }
+    .help-tab:hover { background: rgba(255,255,255,0.1); color: #f1f5f9; }
+    .help-tab.active {
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(16,185,129,0.15));
+      border-color: rgba(99,102,241,0.4); color: #f1f5f9;
+    }
+    .help-tab .tab-icon { font-size: 1.3rem; }
+
+    .help-panel { display: none; }
+    .help-panel.active { display: block; animation: fadeSlideUp 0.4s ease; }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .guide-section {
+      background: var(--card-bg, #1e293b); border-radius: 16px;
+      padding: 28px; margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .guide-section:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+    .guide-section h3 {
+      font-size: 1.15rem; margin: 0 0 16px; display: flex; align-items: center; gap: 10px;
+      padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .guide-section h3 .section-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .guide-section h3 .icon-blue { background: rgba(59,130,246,0.15); }
+    .guide-section h3 .icon-green { background: rgba(16,185,129,0.15); }
+    .guide-section h3 .icon-purple { background: rgba(139,92,246,0.15); }
+    .guide-section h3 .icon-amber { background: rgba(245,158,11,0.15); }
+    .guide-section h3 .icon-red { background: rgba(239,68,68,0.15); }
+    .guide-section h3 .icon-teal { background: rgba(20,184,166,0.15); }
+
+    .step-list { list-style: none; padding: 0; margin: 0; counter-reset: step-counter; }
+    .step-list li {
+      counter-increment: step-counter; padding: 14px 14px 14px 52px;
+      position: relative; border-radius: 10px; margin-bottom: 8px;
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s; font-size: 0.92rem; line-height: 1.6; color: #cbd5e1;
+    }
+    .step-list li:hover { background: rgba(255,255,255,0.05); }
+    .step-list li::before {
+      content: counter(step-counter);
+      position: absolute; left: 14px; top: 14px;
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff; font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-list li strong { color: #f1f5f9; }
+
+    .tip-box {
+      background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 12px; padding: 16px 20px; margin-top: 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .tip-box .tip-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .tip-box p { margin: 0; font-size: 0.88rem; color: #94a3b8; line-height: 1.6; }
+
+    .keyboard-shortcut {
+      display: inline-block; background: rgba(255,255,255,0.1);
+      padding: 2px 8px; border-radius: 6px; font-family: monospace;
+      font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .contact-card {
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.08));
+      border: 1px solid rgba(99,102,241,0.15); border-radius: 16px;
+      padding: 24px; text-align: center; margin-top: 20px;
+    }
+    .contact-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .contact-card p { margin: 4px 0; color: #94a3b8; font-size: 0.9rem; }
+    .contact-card a { color: #6366f1; text-decoration: none; }
+  </style>
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+
+      <div class="help-hero">
+        <h1>📖 <span>Help & User Guide</span></h1>
+        <p>Step-by-step instructions for using the Sunrise Dental Clinic Management System</p>
+      </div>
+
+
+      <!-- Panel: Administrator -->
+      <div class="help-panel" id="panel-admin">
+        
+        <div class="help-hero" style="margin-bottom: 24px; text-align: left; background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(139,92,246,0.08)); padding: 24px; border-radius: 16px; border: 1px solid rgba(99,102,241,0.2);">
+          <h2 style="margin: 0 0 10px; font-size: 1.4rem; color: #f8fafc;">👋 Welcome, New Administrator!</h2>
+          <p style="margin: 0; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
+            As the clinic administrator, you have full control over the Sunrise Dental system. This guide will walk you through the essential tasks you need to perform daily. From managing staff access to configuring clinic settings and generating revenue reports, everything is available in your secure dashboard.
+          </p>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-purple">👥</span> Staff User Management</h3>
+          <ol class="step-list">
+            <li>Go to <strong>"Staff Users"</strong> from the sidebar menu.</li>
+            <li>To <strong>add</strong> a new staff member: fill in Full Name, Username, Password, and Role, then click <strong>"Create Account"</strong>.</li>
+            <li>To <strong>edit</strong> a staff member: click the <strong>✏️ Edit</strong> button. Update the details in the popup and click <strong>"💾 Save Changes"</strong>. Leave password blank to keep existing.</li>
+            <li>To <strong>delete</strong> (deactivate) a staff member: click the <strong>🗑️ Delete</strong> button. Confirm to disable their login access.</li>
+          </ol>
+          <div class="tip-box">
+            <span class="tip-icon">🔒</span>
+            <p>Only Administrators can create, edit, or deactivate staff accounts. There is no public self-registration. All changes are saved directly to the database.</p>
+          </div>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-teal">⚙️</span> Clinic Settings</h3>
+          <ol class="step-list">
+            <li>Go to <strong>"Settings"</strong> to manage <strong>Treatments</strong>, <strong>Dentists</strong>, and the <strong>Consultation Fee</strong>.</li>
+            <li>Add new treatment types with prices (e.g., Dental Cleaning — Rs. 4,500).</li>
+            <li>Add new dentists with specialization. Update the consultation fee as needed.</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-amber">📈</span> Reports</h3>
+          <ol class="step-list">
+            <li>Go to <strong>"Reports"</strong> to generate <strong>Daily Appointment Reports</strong> or <strong>Revenue Reports</strong>.</li>
+            <li><strong>Daily Report:</strong> Select a date to view all appointments for that day.</li>
+            <li><strong>Revenue Report:</strong> Select a date range to see total revenue by treatment type.</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-blue">📅</span> All Appointments</h3>
+          <ol class="step-list">
+            <li>Go to <strong>"All Appointments"</strong> to view the complete appointment list.</li>
+            <li>Use the <strong>date filter</strong> and <strong>dentist filter</strong> to narrow down results.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Panel: Receptionist -->
+      <div class="help-panel" id="panel-receptionist">
+        <div class="guide-section">
+          <h3><span class="section-icon icon-green">➕</span> Register New Appointment</h3>
+          <ol class="step-list">
+            <li>Click <strong>"Register Appointment"</strong> from your sidebar.</li>
+            <li>Fill in the patient's <strong>Full Name</strong>, <strong>Address</strong>, and <strong>Contact Number</strong> (must be a valid Sri Lankan mobile number starting with <strong>07</strong>, e.g., 0771234567).</li>
+            <li>Select the <strong>Dentist</strong> and <strong>Treatment Type</strong> from the dropdown menus.</li>
+            <li>Choose the <strong>Appointment Date</strong> (cannot be in the past) and <strong>Time</strong> (must be between 08:00 AM and 06:00 PM — clinic working hours).</li>
+            <li>Click <strong>"Register Appointment"</strong>. The system will generate a unique <strong>Appointment Number</strong> (e.g., APT0001). Share this number with the patient.</li>
+          </ol>
+          <div class="tip-box">
+            <span class="tip-icon">🔄</span>
+            <p>If the selected time slot is already booked for that dentist, the system will alert you to choose a different time. This prevents <strong>double bookings</strong>.</p>
+          </div>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-blue">🔍</span> Search Appointment</h3>
+          <ol class="step-list">
+            <li>Navigate to <strong>"Search Appointment"</strong> from the sidebar.</li>
+            <li>Enter the <strong>Appointment Number</strong> (e.g., APT0001) and click <strong>"Search"</strong>.</li>
+            <li>The system displays <strong>complete appointment details</strong>: patient name, address, contact, dentist, treatment, date, time, and current status.</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-amber">🧾</span> Calculate & Print Bill</h3>
+          <ol class="step-list">
+            <li>Go to <strong>"Calculate & Print Bill"</strong> from the sidebar.</li>
+            <li>Enter the <strong>Appointment Number</strong> and click <strong>"Calculate Bill"</strong>.</li>
+            <li>The bill shows: <strong>Treatment Cost</strong> + <strong>Consultation Fee</strong> = <strong>Total Amount</strong>, along with patient details (name, contact, address) and the treating dentist.</li>
+            <li>Click <strong>"🖨️ Print Receipt"</strong> to print a professional receipt for the patient.</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-teal">📋</span> Today's Appointments</h3>
+          <ol class="step-list">
+            <li>Click <strong>"Today's Appointments"</strong> to view all appointments scheduled for today.</li>
+            <li>This helps you manage the <strong>patient queue</strong> and estimate <strong>waiting times</strong>.</li>
+            <li>Appointments are sorted by time and show the status of each (Scheduled, In Progress, Completed).</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-purple">📧</span> Send Reminder</h3>
+          <ol class="step-list">
+            <li>Navigate to <strong>"Send Reminder"</strong> from the sidebar.</li>
+            <li>Enter the <strong>Appointment Number</strong> and select the reminder type: <strong>Email</strong> or <strong>SMS</strong>.</li>
+            <li>Click <strong>"Send Reminder"</strong>. The system will create a notification record and display a confirmation message.</li>
+          </ol>
+          <div class="tip-box">
+            <span class="tip-icon">📱</span>
+            <p>Reminders help reduce <strong>no-shows</strong> and improve patient attendance. Both Email and SMS notifications are supported by the system.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel: Dentist -->
+      <div class="help-panel" id="panel-dentist">
+        <div class="guide-section">
+          <h3><span class="section-icon icon-green">🦷</span> My Appointments Today</h3>
+          <ol class="step-list">
+            <li>Your <strong>Dashboard</strong> shows the number of patients scheduled for you today.</li>
+            <li>Click <strong>"My Appointments Today"</strong> to see the full list with patient names, treatment types, times, and statuses.</li>
+            <li>Use this to plan your day and prepare for each patient's treatment.</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-blue">🔍</span> Search Appointment</h3>
+          <ol class="step-list">
+            <li>Navigate to <strong>"Search Appointment"</strong> from the sidebar.</li>
+            <li>Enter an <strong>Appointment Number</strong> to look up the details of any patient assigned to you.</li>
+            <li>View patient name, contact information, address, treatment type, and appointment status.</li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h3><span class="section-icon icon-amber">✏️</span> Update Appointment Status</h3>
+          <ol class="step-list">
+            <li>Go to <strong>"Update Status"</strong> from the sidebar.</li>
+            <li>Enter the <strong>Appointment Number</strong> and select the new status.</li>
+            <li>The workflow is: <strong>Scheduled</strong> → <strong>In Progress</strong> → <strong>Completed</strong>.</li>
+            <li>Click <strong>"Update"</strong>. The status change is immediately visible to the receptionist and admin.</li>
+          </ol>
+          <div class="tip-box">
+            <span class="tip-icon">🔒</span>
+            <p>You can only update the status of <strong>your own appointments</strong>. The system enforces this for security and accountability. All status changes are logged in the audit trail.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <script src="js/common.js?v=7"></script>
+  <script src="js/admin.js?v=7"></script>
+  <script>
+    const s = requireAuth();
+    if (s) {
+      initAppShell(s.role, 'help');
+      
+      // Hide all panels
+      document.querySelectorAll('.help-panel').forEach(p => p.classList.remove('active'));
+      
+      // Show only the panel for the logged-in role
+      if (s.role === 'ADMIN') {
+        document.getElementById('panel-admin').classList.add('active');
+      } else if (s.role === 'RECEPTIONIST') {
+        document.getElementById('panel-receptionist').classList.add('active');
+      } else if (s.role === 'DENTIST') {
+        document.getElementById('panel-dentist').classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Users — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .btn-edit { background: linear-gradient(135deg, #3b82f6, #6366f1); color: #fff; border: none; }
+    .btn-edit:hover { background: linear-gradient(135deg, #2563eb, #4f46e5); transform: translateY(-1px); }
+    .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; border: none; }
+    .btn-danger:hover { background: linear-gradient(135deg, #dc2626, #b91c1c); transform: translateY(-1px); }
+    .action-cell { display: flex; gap: 8px; align-items: center; }
+    .action-cell .btn { width: 90px; text-align: center; padding: 7px 0; font-size: 0.8rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-weight: 600; }
+
+    /* Edit Modal Overlay */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.visible { opacity: 1; pointer-events: all; }
+    .modal-card {
+      background: var(--card-bg, #1e293b); border-radius: 16px;
+      padding: 32px; width: 460px; max-width: 90vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      transform: scale(0.9); transition: transform 0.3s ease;
+    }
+    .modal-overlay.visible .modal-card { transform: scale(1); }
+    .modal-card h2 { margin: 0 0 20px; font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+    .modal-card .form-group { margin-bottom: 16px; }
+    .modal-card .form-group label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.85rem; color: #94a3b8; }
+    .modal-card .form-group input,
+    .modal-card .form-group select {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05);
+      color: #f1f5f9; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+    }
+    .modal-card .form-group input:focus,
+    .modal-card .form-group select:focus { border-color: #6366f1; }
+    .modal-card .modal-actions { display: flex; gap: 12px; margin-top: 20px; justify-content: flex-end; }
+    .modal-card .btn-cancel { background: rgba(255,255,255,0.08); color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 10px; cursor: pointer; }
+    .modal-card .btn-cancel:hover { background: rgba(255,255,255,0.15); }
+    .modal-card .btn-save { background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+    .modal-card .btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(16,185,129,0.3); }
+    .modal-card .hint { font-size: 0.75rem; color: #64748b; margin-top: 4px; }
+  </style>
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Administrator</p>
+        <h1>Staff User Management</h1>
+        <p>Create, edit and manage staff accounts — no public self-registration</p>
+      </div>
+      <div class="card">
+        <h2 class="card-title">➕ Add Staff User</h2>
+        <form id="staffForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" name="fullName" required placeholder="e.g. Dr. Nimal Silva">
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" required placeholder="e.g. dr.nimal">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" required minlength="6" placeholder="Minimum 6 characters">
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select name="role" required>
+                <option value="">Select role</option>
+                <option value="ADMIN">Admin</option>
+                <option value="RECEPTIONIST">Receptionist</option>
+                <option value="DENTIST">Dentist</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Create Account</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2 class="card-title">👥 Staff List</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="staffBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Edit Staff Modal -->
+  <div class="modal-overlay" id="editStaffModal">
+    <div class="modal-card">
+      <h2>✏️ Update Staff User</h2>
+      <form id="editStaffForm">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="editFullName" required>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="editUsername" required>
+        </div>
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" name="editPassword">
+          <p class="hint">Leave blank to keep existing password</p>
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select name="editRole" required>
+            <option value="ADMIN">Admin</option>
+            <option value="RECEPTIONIST">Receptionist</option>
+            <option value="DENTIST">Dentist</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="cancelEditBtn">Cancel</button>
+          <button type="submit" class="btn-save">💾 Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/admin.js?v=7"></script>
+  <script>
+    requireAuth(['ADMIN']);
+    initAppShell('ADMIN', 'staff');
+    initStaffUsersPage();
+  </script>
+</body>
+</html>

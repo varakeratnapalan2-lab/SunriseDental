@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Appointment — SunriseDental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main-content">
+      <div class="page-header">
+        <p class="breadcrumb">Receptionist</p>
+        <h1>Register New Appointment</h1>
+        <p>Register patient and appointment details — appointment number is generated automatically</p>
+      </div>
+      <div class="card hidden" id="successPanel">
+        <p style="color:var(--success);font-weight:600;">✅ Appointment registered successfully!</p>
+        <p>Appointment Number: <strong id="generatedApptNo"></strong></p>
+      </div>
+      <div class="card">
+        <form id="registerAppointmentForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="patientName">Patient Name *</label>
+              <input type="text" id="patientName" name="patientName" placeholder="Full name">
+              <span class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="contactNumber">Contact Number *</label>
+              <input type="tel" id="contactNumber" name="contactNumber" placeholder="07XXXXXXXX">
+              <span class="form-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address *</label>
+            <textarea id="address" name="address" rows="2" placeholder="Patient address"></textarea>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="dentistName">Dentist Name *</label>
+              <select id="dentistName" name="dentistName"></select>
+              <span class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="treatmentType">Treatment Type *</label>
+              <select id="treatmentType" name="treatmentType"></select>
+              <span class="form-error"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="appointmentDate">Appointment Date *</label>
+              <input type="date" id="appointmentDate" name="appointmentDate">
+              <span class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="appointmentTime">Appointment Time *</label>
+              <input type="time" id="appointmentTime" name="appointmentTime" min="08:00" max="18:00">
+              <span class="form-error"></span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="max-width:280px;">Save Appointment</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="../js/common.js?v=7"></script>
+  <script src="../js/appointment.js?v=7"></script>
+  <script>
+    requireAuth(['RECEPTIONIST']);
+    initAppShell('RECEPTIONIST', 'register');
+    initRegisterAppointmentForm();
+  </script>
+</body>
+</html>
